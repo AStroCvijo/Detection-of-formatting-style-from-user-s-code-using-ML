@@ -86,11 +86,13 @@ if __name__ == "__main__":
     # Model Constants
     embedding_dim = args.embedding_dim
     hidden_dim = args.hidden_dim
+    num_layers = args.num_layers
+    bidirectional = args.bidirectional
     output_dim = 3  # Three classes: <SPACE>, <NEWLINE>, other
 
     # Initialize the model and move it to the device
     vocab_size = len(token_to_index)
-    model = LSTM(vocab_size, embedding_dim, hidden_dim, output_dim).to(device)
+    model = LSTM(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, bidirectional).to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
 
