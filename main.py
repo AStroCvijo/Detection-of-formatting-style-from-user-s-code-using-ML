@@ -12,6 +12,9 @@ from sklearn.preprocessing import LabelEncoder
 # Import the argument parser
 from utils.argparser import arg_parse
 
+# Import the seed setter
+from utils.seed import set_seed
+
 # Import the function for filtering coq files
 from data.data_functions import filter_coq_files
 
@@ -31,6 +34,10 @@ from train.eval import eval
 from model.LSTM import LSTM
 
 if __name__ == "__main__":
+    
+    # Set the seed
+    seed = 42
+    set_seed(seed)
 
     # Parse the arguments
     args = arg_parse()
@@ -69,7 +76,7 @@ if __name__ == "__main__":
 
     # Create the dataloaders
     batch_size = args.batch_size
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=False, generator=torch.Generator().manual_seed(seed))
     val_loader = DataLoader(val_dataset, batch_size=batch_size)
     test_loader = DataLoader(test_dataset, batch_size=batch_size)
 
