@@ -30,9 +30,14 @@ from data.data_functions import CoqTokenDataset
 from train.train import train
 from train.eval import eval
 
-# Import the model
+# Import the models
 from model.LSTM import LSTM
 from model.transformer import Transformer
+from model.n_gram import NGram
+
+def init_weights(m):
+    if isinstance(m, nn.Linear) or isinstance(m, nn.Embedding):
+        torch.nn.init.xavier_uniform_(m.weight)
 
 if __name__ == "__main__":
 
@@ -103,16 +108,24 @@ if __name__ == "__main__":
         # Initialize the model and move it to the device
         vocab_size = len(token_to_index)
         model = LSTM(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, bidirectional).to(device)
-        criterion = nn.CrossEntropyLoss()
-        optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
+        model.apply(init_weights)
         print("Using LSTM model")
     elif (args.model == "transformer"):
         # Initialize the model and move it to the device
         vocab_size = len(token_to_index)
         model = Transformer(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, nhead).to(device)
-        criterion = nn.CrossEntropyLoss()
-        optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
+        model.apply(init_weights)
         print("Using Transformer model")
+    elif (args.model == "n_gram"):
+        # Initialize the model and move it to the device
+        vocab_size = len(token_to_index)
+        model = NGram(vocab_size, embedding_dim, output_dim)
+        model.apply(init_weights)
+        print("Using n-gram model")
+
+    criterion = nn.CrossEntropyLoss()
+    optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
+
 
     # --------------------------------------------------------------------------------------------------------------------------------------------
     # Train and evaluate the model
