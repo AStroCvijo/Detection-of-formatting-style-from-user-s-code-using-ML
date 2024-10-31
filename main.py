@@ -9,6 +9,9 @@ from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, Dataset, TensorDataset
 from sklearn.preprocessing import LabelEncoder
 
+# Import the argument parser
+from utils.argparser import arg_parse
+
 # Import the function for filtering coq files
 from data.data_functions import filter_coq_files
 
@@ -29,10 +32,14 @@ from model.LSTM import LSTM
 
 if __name__ == "__main__":
 
+    # Parse the arguments
+    args = arg_parse()
+
     # Extract coq files
     input_folder = "data/math-comp"
     output_folder = "data/coq_files"
-    filter_coq_files(input_folder, output_folder)
+    if (not os.path.isdir(output_folder)):
+        filter_coq_files(input_folder, output_folder)
 
     # Directory containing coq files
     directory = 'data/coq_files'
@@ -45,7 +52,7 @@ if __name__ == "__main__":
     tokens, token_info = tokenize_coq_files_in_directory(directory)
 
     # Create sequences of tokens and their labels
-    seq_length = 6
+    seq_length = args.sequence_length
     sequences, labels = create_sequences_and_labels(tokens, token_info, seq_length)
 
     # Build the vocabulary and convert to indexed sequences
@@ -61,7 +68,7 @@ if __name__ == "__main__":
     test_dataset = CoqTokenDataset(test_seqs, test_labels)
 
     # Create the dataloaders
-    batch_size = 256
+    batch_size = args.batch_size
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=False)
     val_loader = DataLoader(val_dataset, batch_size=batch_size)
     test_loader = DataLoader(test_dataset, batch_size=batch_size)
@@ -77,21 +84,23 @@ if __name__ == "__main__":
     print("Using device:", device)
 
     # Model Constants
-    embedding_dim = 768
-    hidden_dim = 768
+    embedding_dim = args.embedding_dim
+    hidden_dim = args.hidden_dim
     output_dim = 3  # Three classes: <SPACE>, <NEWLINE>, other
 
     # Initialize the model and move it to the device
     vocab_size = len(token_to_index)
     model = LSTM(vocab_size, embedding_dim, hidden_dim, output_dim).to(device)
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=0.00001)
+    optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
 
     # Train the model
-    num_epochs = 30
+    num_epochs = args.epochs
     print("Starting training...")
     train(num_epochs, train_loader, test_loader, model, device, optimizer, criterion)
 
     # Calculate and print the overall accuracy
-    accuracy = calculate_accuracy(train_loader, model, device)
-    print(f"Overall Accuracy: {accuracy:.4f}")
+    train_accuracy = eval(train_loader, model, device)
+    val_accuracy = eval(val_loader, model, device)
+    test_accuracy = eval(test_loader, model, device)
+    print(f"Training Accuracy: {train_accuracy:.4f}, Validation Accuracy: {val_accuracy:.4f}, Test Accuracy: {test_accuracy:.4f}")

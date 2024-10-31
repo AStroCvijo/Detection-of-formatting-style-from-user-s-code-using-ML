@@ -30,9 +30,9 @@ def train(num_epochs, train_loader, test_loader, model, device, optimizer, crite
                 print(f"Epoch {epoch+1}, Batch {batch_idx+1}, Loss: {loss.item():.4f}")
                 
         # Calculate training accuracy
-        train_accuracy = calculate_accuracy(train_loader, model, device)
+        train_accuracy = eval(train_loader, model, device)
         # Calculate test accuracy
-        test_accuracy = calculate_accuracy(test_loader, model, device)
+        test_accuracy = eval(test_loader, model, device)
         
         print(f"Epoch {epoch+1}/{num_epochs}, Average Loss: {total_loss / len(train_loader):.4f}, Training Accuracy: {train_accuracy:.4f}, Test Accuracy: {test_accuracy:.4f}")
     
