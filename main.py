@@ -32,9 +32,10 @@ from train.eval import eval
 
 # Import the model
 from model.LSTM import LSTM
+from model.transformer import Transformer
 
 if __name__ == "__main__":
-    
+
     # Set the seed
     seed = 42
     set_seed(seed)
@@ -95,13 +96,27 @@ if __name__ == "__main__":
     hidden_dim = args.hidden_dim
     num_layers = args.num_layers
     bidirectional = args.bidirectional
+    nhead = args.number_heads
     output_dim = 3  # Three classes: <SPACE>, <NEWLINE>, other
 
-    # Initialize the model and move it to the device
-    vocab_size = len(token_to_index)
-    model = LSTM(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, bidirectional).to(device)
-    criterion = nn.CrossEntropyLoss()
-    optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
+    if (args.model == "LSTM"):
+        # Initialize the model and move it to the device
+        vocab_size = len(token_to_index)
+        model = LSTM(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, bidirectional).to(device)
+        criterion = nn.CrossEntropyLoss()
+        optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
+        print("Using LSTM model")
+    elif (args.model == "transformer"):
+        # Initialize the model and move it to the device
+        vocab_size = len(token_to_index)
+        model = Transformer(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, nhead).to(device)
+        criterion = nn.CrossEntropyLoss()
+        optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
+        print("Using Transformer model")
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------
+    # Train and evaluate the model
+    # --------------------------------------------------------------------------------------------------------------------------------------------
 
     # Train the model
     num_epochs = args.epochs
@@ -113,3 +128,5 @@ if __name__ == "__main__":
     val_accuracy = eval(val_loader, model, device)
     test_accuracy = eval(test_loader, model, device)
     print(f"Training Accuracy: {train_accuracy:.4f}, Validation Accuracy: {val_accuracy:.4f}, Test Accuracy: {test_accuracy:.4f}")
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------
