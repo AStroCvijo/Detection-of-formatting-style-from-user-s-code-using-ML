@@ -26,7 +26,7 @@ def train(num_epochs, train_loader, test_loader, model, device, optimizer, crite
             
             # Accumulate loss
             total_loss += loss.item()
-            if (batch_idx + 1) % 1 == 0:
+            if (batch_idx + 1) % 200 == 0:
                 print(f"Epoch {epoch+1}, Batch {batch_idx+1}, Loss: {loss.item():.4f}")
         
         # Calculate and display accuracies
