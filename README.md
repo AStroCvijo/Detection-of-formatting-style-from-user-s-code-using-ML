@@ -8,7 +8,7 @@ Date of creation: October, 2024
 ## Quickstart
 1. Clone the repository:
     ```bash
-    git clone https://github.com/AStroCvijo/detection_of_formatting_style_from_user_s_code_using_ml.git
+    git clone https://github.com/AStroCvijo/detection_of_formatting_style.git
     ```
 
 2. Download the [math-comp dataset](https://github.com/math-comp/math-comp), extract it, and paste the folder into the `detection_of_formatting_style_from_user_s_code_using_ml\data` directory.
