@@ -116,7 +116,7 @@ if __name__ == "__main__":
     elif (args.model == "n_gram"):
         # Initialize the model and move it to the device
         vocab_size = len(token_to_index)
-        model = NGram(vocab_size, embedding_dim, output_dim)
+        model = NGram(vocab_size, embedding_dim, output_dim).to(device)
         model.apply(init_weights)
         print("Using n-gram model")
 
