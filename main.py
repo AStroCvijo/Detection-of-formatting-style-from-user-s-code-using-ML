@@ -12,8 +12,9 @@ from sklearn.preprocessing import LabelEncoder
 # Import the argument parser
 from utils.argparser import arg_parse
 
-# Import the seed setter
+# Import functions for seed setting
 from utils.seed import set_seed
+from utils.seed import init_weights
 
 # Import the function for filtering coq files
 from data.data_functions import filter_coq_files
@@ -34,10 +35,6 @@ from train.eval import eval
 from model.LSTM import LSTM
 from model.transformer import Transformer
 from model.n_gram import NGram
-
-def init_weights(m):
-    if isinstance(m, nn.Linear) or isinstance(m, nn.Embedding):
-        torch.nn.init.xavier_uniform_(m.weight)
 
 if __name__ == "__main__":
 

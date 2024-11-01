@@ -11,3 +11,8 @@ def set_seed(seed):
     torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
+
+# Function for initializing weights
+def init_weights(m):
+    if isinstance(m, nn.Linear) or isinstance(m, nn.Embedding):
+        torch.nn.init.xavier_uniform_(m.weight)
