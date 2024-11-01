@@ -13,19 +13,20 @@ from sklearn.preprocessing import LabelEncoder
 from utils.argparser import arg_parse
 
 # Import functions for seed setting
-from utils.seed import set_seed
-from utils.seed import init_weights
+from utils.seed import set_seed, init_weights
 
-# Import the function for filtering coq files
+# Import the function for filtering Coq files
 from data.data_functions import filter_coq_files
 
 # Import the functions for preprocessing the data
-from data.data_functions import tokenize_coq_files_in_directory
-from data.data_functions import create_sequences_and_labels
-from data.data_functions import build_vocab
-from data.data_functions import tokens_to_indices
-from data.data_functions import split_data
-from data.data_functions import CoqTokenDataset
+from data.data_functions import (
+    tokenize_coq_files_in_directory,
+    create_sequences_and_labels,
+    build_vocab,
+    tokens_to_indices,
+    split_data,
+    CoqTokenDataset
+)
 
 # Import the function for training and evaluating the model
 from train.train import train
@@ -45,20 +46,20 @@ if __name__ == "__main__":
     # Parse the arguments
     args = arg_parse()
 
-    # Extract coq files
+    # Extract Coq files
     input_folder = "data/math-comp"
     output_folder = "data/coq_files"
-    if (not os.path.isdir(output_folder)):
+    if not os.path.isdir(output_folder):
         filter_coq_files(input_folder, output_folder)
-
-    # Directory containing coq files
-    directory = 'data/coq_files'
 
     # --------------------------------------------------------------------------------------------------------------------------------------------
     # Preprocess the dataset
     # --------------------------------------------------------------------------------------------------------------------------------------------
 
-    # Tokenize the coq code
+    # Directory containing Coq files
+    directory = 'data/coq_files'
+
+    # Tokenize the Coq code
     tokens, token_info = tokenize_coq_files_in_directory(directory)
 
     # Create sequences of tokens and their labels
@@ -101,28 +102,22 @@ if __name__ == "__main__":
     nhead = args.number_heads
     output_dim = 3  # Three classes: <SPACE>, <NEWLINE>, other
 
-    if (args.model == "LSTM"):
-        # Initialize the model and move it to the device
-        vocab_size = len(token_to_index)
+    # Initialize the model based on the selected architecture
+    vocab_size = len(token_to_index)
+    if args.model == "LSTM":
         model = LSTM(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, bidirectional).to(device)
-        model.apply(init_weights)
         print("Using LSTM model")
-    elif (args.model == "transformer"):
-        # Initialize the model and move it to the device
-        vocab_size = len(token_to_index)
+    elif args.model == "transformer":
         model = Transformer(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, nhead).to(device)
-        model.apply(init_weights)
         print("Using Transformer model")
-    elif (args.model == "n_gram"):
-        # Initialize the model and move it to the device
-        vocab_size = len(token_to_index)
+    elif args.model == "n_gram":
         model = NGram(vocab_size, embedding_dim, output_dim).to(device)
-        model.apply(init_weights)
         print("Using n-gram model")
+    model.apply(init_weights)
 
+    # Set up loss function and optimizer
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.Adam(model.parameters(), lr=args.learning_rate)
-
 
     # --------------------------------------------------------------------------------------------------------------------------------------------
     # Train and evaluate the model
@@ -138,5 +133,3 @@ if __name__ == "__main__":
     val_accuracy = eval(val_loader, model, device)
     test_accuracy = eval(test_loader, model, device)
     print(f"Training Accuracy: {train_accuracy:.4f}, Validation Accuracy: {val_accuracy:.4f}, Test Accuracy: {test_accuracy:.4f}")
-
-    # --------------------------------------------------------------------------------------------------------------------------------------------
