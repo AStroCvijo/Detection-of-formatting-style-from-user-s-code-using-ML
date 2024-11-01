@@ -11,11 +11,11 @@ Date of creation: October, 2024
     git clone https://github.com/AStroCvijo/detection_of_formatting_style.git
     ```
 
-2. Download the [math-comp dataset](https://github.com/math-comp/math-comp), extract it, and paste the folder into the `detection_of_formatting_style_from_user_s_code_using_ml\data` directory.
+2. Download the [math-comp dataset](https://github.com/math-comp/math-comp), extract it, and paste the folder into the `detection_of_formatting_style\data` directory.
 
 3. Navigate to the project directory:
     ```bash
-    cd detection_of_formatting_style_from_user_s_code_using_ml
+    cd detection_of_formatting_style
     ```
 
 4. Create a virtual environment:
@@ -73,7 +73,7 @@ Date of creation: October, 2024
 ## Folder Tree
 
 ```
-detection_of_formatting_style_from_user_s_code_using_ml
+detection_of_formatting_style
 ├── data
 │   ├── data_functions.py     # Contains functions for data preprocessing, loading, and transformation
 │   └── math-comp             # The dataset folder
