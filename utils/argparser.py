@@ -17,7 +17,7 @@ def arg_parse():
 
     # Shared LSTM and Transformer arguments
     parser.add_argument('-hs',  '--hidden_dim',        type=int,   default = 768,            help="Size of the models hidden layer")
-    parser.add_argument('-es',  '--embedding_dim',     type=int,   default = 768,            help="Size of the embedding space")
+    parser.add_argument('-ed',  '--embedding_dim',     type=int,   default = 768,            help="Size of the embedding space")
     parser.add_argument('-nl',  '--num_layers',        type=int,   default = 2,              help="Number of layers in the model")
 
     # Training arguments
