@@ -36,6 +36,7 @@ from train.eval import eval
 from model.LSTM import LSTM
 from model.transformer import Transformer
 from model.n_gram import NGram
+from model.LSTMFS import LSTMFS
 
 if __name__ == "__main__":
 
@@ -113,6 +114,9 @@ if __name__ == "__main__":
     elif args.model == "n_gram":
         model = NGram(vocab_size, embedding_dim, output_dim).to(device)
         print("Using n-gram model")
+    elif args.model == "LSTMFS":
+        model = LSTM(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, bidirectional).to(device)
+        print("Using LSTMFS model")
     model.apply(init_weights)
 
     # Set up loss function and optimizer
