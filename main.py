@@ -52,6 +52,8 @@ if __name__ == "__main__":
     output_folder = "data/coq_files"
     if not os.path.isdir(output_folder):
         filter_coq_files(input_folder, output_folder)
+    elif not os.listdir(output_folder):
+        filter_coq_files(input_folder, output_folder)
 
     # --------------------------------------------------------------------------------------------------------------------------------------------
     # Preprocess the dataset
