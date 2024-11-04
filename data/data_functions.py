@@ -130,14 +130,14 @@ class CoqTokenDataset(Dataset):
         return torch.tensor(self.sequences[idx], dtype=torch.long), torch.tensor(self.labels[idx], dtype=torch.long)
 
 # Function to split data into training, validation, and test sets
-def split_data(sequences, labels, test_size=0.2, val_size=0.1):
+def split_data(sequences, labels, seed, test_size=0.2, val_size=0.1):
     # Initial split into train+validation and test sets
     train_val_seqs, test_seqs, train_val_labels, test_labels = train_test_split(
-        sequences, labels, test_size=test_size, random_state=42
+        sequences, labels, test_size=test_size, random_state=seed
     )
     # Further split train+validation into train and validation sets
     train_seqs, val_seqs, train_labels, val_labels = train_test_split(
-        train_val_seqs, train_val_labels, test_size=val_size / (1 - test_size), random_state=42
+        train_val_seqs, train_val_labels, test_size=val_size / (1 - test_size), random_state=seed
     )
     return train_seqs, train_labels, val_seqs, val_labels, test_seqs, test_labels
 

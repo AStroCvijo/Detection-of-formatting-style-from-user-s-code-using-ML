@@ -74,7 +74,7 @@ if __name__ == "__main__":
     indexed_sequences = tokens_to_indices(sequences, token_to_index)
 
     # Split into train, validation, and test sets
-    train_seqs, train_labels, val_seqs, val_labels, test_seqs, test_labels = split_data(indexed_sequences, labels)
+    train_seqs, train_labels, val_seqs, val_labels, test_seqs, test_labels = split_data(indexed_sequences, labels, seed)
 
     # Create Dataset and DataLoader for each split
     train_dataset = CoqTokenDataset(train_seqs, train_labels)
@@ -132,7 +132,7 @@ if __name__ == "__main__":
     # Train the model
     num_epochs = args.epochs
     print("Starting training...")
-    train(num_epochs, train_loader, test_loader, model, device, optimizer, criterion)
+    train(num_epochs, train_loader, test_loader, model, device, optimizer, criterion, args.model_name)
 
     # Calculate and print the overall accuracy
     train_accuracy = eval(train_loader, model, device)

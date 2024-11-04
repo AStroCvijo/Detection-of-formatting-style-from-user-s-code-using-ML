@@ -8,7 +8,7 @@ from torch.nn.utils.rnn import pad_sequence, pack_padded_sequence
 from train.eval import eval
 
 # Function to train the model
-def train(num_epochs, train_loader, test_loader, model, device, optimizer, criterion):
+def train(num_epochs, train_loader, test_loader, model, device, optimizer, criterion, model_name):
     for epoch in range(num_epochs):
         total_loss = 0
         for batch_idx, (batch_sequences, batch_labels) in enumerate(train_loader):
@@ -36,6 +36,6 @@ def train(num_epochs, train_loader, test_loader, model, device, optimizer, crite
               f"Training Accuracy: {train_accuracy:.4f}, Test Accuracy: {test_accuracy:.4f}")
     
     # Save the model
-    model_save_path = "pretrained_models/model.pth"
-    torch.save(model.state_dict(), model_save_path)
+    model_save_path = "pretrained_models/" + model_name +".pth"
+    torch.save(model, model_save_path)
     print(f"Model saved to {model_save_path}")
