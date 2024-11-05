@@ -103,9 +103,11 @@ def create_sequences_and_labels(tokens, token_info, seq_length):
     sequences = []
     labels = []
     
-    for i in range(len(tokens) - seq_length):
+    for i in range(len(tokens) - seq_length * 2):
         # Extract a sequence of tokens and determine the label for the next token
-        sequence = tokens[i:i + seq_length]
+        prev_sequence = tokens[i:i + seq_length]
+        next_sequence = tokens[i + seq_length +1: i + seq_length + 1 + seq_length]
+        sequence = prev_sequence + next_sequence
         next_token = tokens[i + seq_length]
         label = next_token if next_token in ("<SPACE>", "<NEWLINE>") else "other"
         sequences.append(sequence)
