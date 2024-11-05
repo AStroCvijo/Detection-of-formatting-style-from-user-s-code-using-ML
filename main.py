@@ -110,7 +110,7 @@ if __name__ == "__main__":
     if args.model == "LSTM":
         model = LSTM(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, bidirectional).to(device)
         print("Using LSTM model")
-    elif args.model == "transformer":
+    elif args.model == "Transformer":
         model = Transformer(vocab_size, embedding_dim, hidden_dim, output_dim, num_layers, nhead).to(device)
         print("Using Transformer model")
     elif args.model == "n_gram":
