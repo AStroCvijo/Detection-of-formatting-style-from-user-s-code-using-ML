@@ -150,5 +150,3 @@ def build_vocab(tokens):
 # Function to convert token sequences to index sequences using the vocabulary
 def tokens_to_indices(sequences, token_to_index):
     return [[token_to_index[token] for token in seq] for seq in sequences]
-
-# --------------------------------------------------------------------------------------------------------------------------------------------
