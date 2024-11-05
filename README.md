@@ -34,14 +34,19 @@ Date of creation: October, 2024
       ```
 
 6. Install the required packages:
-    ```bash
-    pip install -r requirements.txt
-    ```
-    ```bash
-    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-    ```
+    - **Linux/macOS**:
+      ```bash
+      source ./scripts/install_dependencies.sh
+      ```
+    - **Windows**:
+      ```bash
+      pip install -r requirements.txt
+      ```
+      ```bash
+      pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+      ```
 
-7. Train the model using the default settings:
+8. Train the model using the default settings:
     ```bash
     python main.py
     ```
