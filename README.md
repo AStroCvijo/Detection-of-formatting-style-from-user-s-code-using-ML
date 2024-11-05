@@ -18,35 +18,12 @@ Date of creation: October, 2024
     cd detection_of_formatting_style
     ```
 
-4. Create a virtual environment:
+4. Set up the environment:
     ```bash
-    python -m venv venv
+    source ./setup.sh
     ```
 
-5. Activate the virtual environment:
-    - **Linux/macOS**:
-      ```bash
-      source venv/bin/activate
-      ```
-    - **Windows**:
-      ```bash
-      venv\Scripts\activate
-      ```
-
-6. Install the required packages:
-    - **Linux/macOS**:
-      ```bash
-      source ./scripts/install_dependencies.sh
-      ```
-    - **Windows**:
-      ```bash
-      pip install -r requirements.txt
-      ```
-      ```bash
-      pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-      ```
-
-8. Train the model using the default settings:
+5. Train the model using the default settings:
     ```bash
     python main.py
     ```
