@@ -16,11 +16,11 @@ def arg_parse():
     parser.add_argument('-bi',  '--bidirectional',     type=bool,  default = False,          help="Whether the LSTM is bidirectional (True/False)")
 
     # Transformer specific arguments
-    parser.add_argument('-nh',  '--number_heads',      type=int,   default = 8,              help="Number of head of the Transformer model")
+    parser.add_argument('-nh',  '--number_heads',      type=int,   default = 8,              help="Number of heads of the Transformer model")
 
     # Training arguments
     parser.add_argument('-e',   '--epochs',            type=int,   default = 30,             help="Number of epochs in training")
-    parser.add_argument('-lr',  '--learning_rate',     type=float, default = 0.00001,        help="Learning rate in training")
+    parser.add_argument('-lr',  '--learning_rate',     type=float, default = 0.00002,        help="Learning rate in training")
     parser.add_argument('-mn',   '--model_name',       type=str,   default = 'model',        help="Name of the model when being saved")
 
     # Data arguments
