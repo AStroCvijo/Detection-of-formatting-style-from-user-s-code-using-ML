@@ -38,7 +38,7 @@ Date of creation: October, 2024
     pip install -r requirements.txt
     ```
     ```bash
-    pip3 install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+    pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
     ```
 
 7. Train the model using the default settings:
