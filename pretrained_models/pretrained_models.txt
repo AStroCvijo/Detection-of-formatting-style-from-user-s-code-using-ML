@@ -1,0 +1,2 @@
+You can download a pretrained Transformer model from here:
+https://mega.nz/file/0NoVCSrL#_hsVNXAsy0TpoAx2hedlUsKBMunCItgrRfatJ1GCoDk
