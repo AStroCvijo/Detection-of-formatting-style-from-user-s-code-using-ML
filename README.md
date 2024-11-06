@@ -65,6 +65,7 @@ detection_of_formatting_style
 ├── models
 │   ├── transformer.py        # Transformer model implementation
 │   ├── LSTM.py               # LSTM model implementation
+│   ├── LSTMFS.py             # LSTM model implementation from scratch
 │   └── n_gram.py             # n_gram model implementation
 ├── pretrained_models         # Directory for saving and loading pre-trained models
 ├── train
@@ -73,5 +74,9 @@ detection_of_formatting_style
 ├── utils
 │   ├── argparser.py          # Contains argument parsing logic for CLI inputs
 │   └── seed.py               # Contains functions for seed setting
+├── README.md                 # README file
+├── requirements.txt          # List of required dependencies
+├── notebook.ipynb            # Notebook to test models
+├── setup.sh                  # Bash script to set up the enviornment
 └── main.py                   # Main script to run the project
 ```
