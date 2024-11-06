@@ -53,7 +53,7 @@ Date of creation: October, 2024
 ## How to Use
 
  ### Training Example: 
-`python main.py --train --model transformer --epochs 30 --learning_rate 0.0001 --sequence_length 6`
+`python main.py --train --model transformer --epochs 15 --learning_rate 0.00002 --sequence_length 6`
 
 ## Folder Tree
 
