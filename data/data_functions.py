@@ -145,7 +145,7 @@ def split_data(sequences, labels, seed, test_size=0.2, val_size=0.1):
 
 # Function to create a vocabulary mapping for token indices
 def build_vocab(tokens):
-    unique_tokens = list(set(tokens))
+    unique_tokens = sorted(set(tokens))
     token_to_index = {token: idx for idx, token in enumerate(unique_tokens)}
     return token_to_index
 
