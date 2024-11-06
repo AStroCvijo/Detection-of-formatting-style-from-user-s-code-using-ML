@@ -62,7 +62,7 @@ detection_of_formatting_style
 ├── data
 │   ├── data_functions.py     # Contains functions for data preprocessing, loading, and transformation
 │   └── math-comp             # The dataset folder
-├── models
+├── model
 │   ├── transformer.py        # Transformer model implementation
 │   ├── LSTM.py               # LSTM model implementation
 │   ├── LSTMFS.py             # LSTM model implementation from scratch
